@@ -1,23 +1,13 @@
 module.exports = {
-    "env": {
-        "browser": true,
-        "es6": true
+    extends: 'airbnb',
+    parser: "babel-eslint",
+    env: {
+        es6: true,
+        browser: true,
     },
-    "extends": "airbnb",
-    "globals": {
-        "Atomics": "readonly",
-        "SharedArrayBuffer": "readonly"
-    },
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": 2018
-    },
-    "plugins": [
-        "react"
-    ],
-    "rules": {
+    rules: {
         'react/jsx-filename-extension': 0,
+        'indent': ['error', 2],
+        'global-require': 1
     }
-};
+}
