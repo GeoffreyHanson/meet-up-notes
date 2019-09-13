@@ -1,11 +1,18 @@
 import React from 'react';
-import './App.css';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import 'materialize-css/dist/css/materialize.min.css';
+import MainPage from './pages/MainPage/MainPage';
 
 function App() {
   return (
-    <div>
-      {/* Here be components */}
-    </div>
+    <Router>
+      <div>
+        {/* Here be components */}
+        <Switch>
+          <Route exact path="/" component={MainPage} />
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
