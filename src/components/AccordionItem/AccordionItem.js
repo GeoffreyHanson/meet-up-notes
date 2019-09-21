@@ -9,10 +9,11 @@ const AccordionItem = (props) => {
     id, name, notes, click,
   } = props;
 
-
+  // Initializing materialize components
   useEffect(() => {
     M.AutoInit();
   });
+
   return (
     <li
       key={id} // 0
@@ -22,9 +23,12 @@ const AccordionItem = (props) => {
         className="collapsible-header"
       >
         <i className="material-icons">filter_drama</i>
+
+        {/* Name of person */}
         {name}
+
         <button
-          onClick={click}
+          onClick={click} // delete functionality
           type="button"
           className="material-icons right-align"
         >
@@ -32,6 +36,7 @@ const AccordionItem = (props) => {
         </button>
       </div>
       <div className="collapsible-body">
+        {/* TODO: turn into input with two way binding */}
         <span>
           {notes}
         </span>

@@ -14,15 +14,18 @@ class MainPage extends Component {
   }
 
   deletePersonHandler = (id) => { // 0
-    let { people } = this.state; // array of people
+    let { people } = this.state;
 
     // Creating a copy of the state.
     people = [...people];
 
+    // Getting the index from the passed id
     const personIndex = people.findIndex((person) => person.id === id);
 
+    // Removing the person from the array
     people.splice(personIndex, 1); // 0, 1
 
+    // Updating state
     this.setState({ people });
   }
 
