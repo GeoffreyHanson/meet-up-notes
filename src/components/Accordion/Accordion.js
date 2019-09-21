@@ -1,33 +1,27 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import M from 'materialize-css';
+import AccordionItem from '../AccordionItem/AccordionItem';
 
 const Accordion = (props) => {
-  const { people } = props;
+  const { people, click } = props;
 
   // Testing useEffect here, might need to be changed to componentDidMount for prod.
   useEffect(() => {
     M.AutoInit();
   });
 
-  // TODO: pass in people from props through .map() to populate
   return (
     <div className="row">
       <ul className="collapsible">
         {people.map((person) => (
-          <li
+          <AccordionItem
+            click={click}
+            id={person.id}
             key={person.id}
-          >
-            <div className="collapsible-header">
-              <i className="material-icons">filter_drama</i>
-              {person.name}
-            </div>
-            <div className="collapsible-body">
-              <span>
-                {person.notes}
-              </span>
-            </div>
-          </li>
+            name={person.name}
+            notes={person.notes}
+          />
         ))}
       </ul>
     </div>
@@ -36,10 +30,12 @@ const Accordion = (props) => {
 
 Accordion.defaultProps = {
   people: PropTypes.arrayOf,
+  click: PropTypes.func,
 };
 
 Accordion.propTypes = {
   people: PropTypes.arrayOf,
+  click: PropTypes.func,
 };
 
 export default Accordion;
