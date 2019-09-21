@@ -37,10 +37,11 @@ const AccordionItem = (props) => {
       </div>
       <div className="collapsible-body">
         {/* TODO: turn into input with two way binding */}
-        <input type="text" onChange={changed} value={notes} />
-        <span>
-          {notes}
-        </span>
+        <input
+          type="text"
+          onChange={changed}
+          value={notes}
+        />
       </div>
     </li>
   );
