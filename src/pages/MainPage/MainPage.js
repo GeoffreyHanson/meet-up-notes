@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import AddButton from '../../components/AddButton/AddButton';
+import NewPersonForm from '../../components/NewPersonForm/NewPersonForm';
 import AccordionItem from '../../components/AccordionItem/AccordionItem';
 
 class MainPage extends Component {
@@ -10,6 +12,7 @@ class MainPage extends Component {
         { id: 1, name: 'Person2', notes: 'Notes about person2' },
         { id: 2, name: 'Person3', notes: 'Notes about person3' },
       ],
+      showForm: false,
     };
   }
 
@@ -53,13 +56,34 @@ class MainPage extends Component {
     });
   }
 
+  addButtonToggleClickHandler = () => {
+    const { showForm } = this.state;
+
+    // Creating a copy of the state.
+    const show = showForm;
+
+    // Setting the state to the opposite boolean.
+    this.setState({ showForm: !show });
+  }
+
+  // addPersonFormHandler = (event) => {}
+
   render() {
-    const { people } = this.state;
+    const { people, showForm } = this.state;
     return (
       <div className="MainPage">
         <div className="container center-align">
           <h1>Test MainPage</h1>
           {/* <AddButton /> */}
+          <div className="row left-align">
+            <AddButton
+              click={() => this.addButtonToggleClickHandler()}
+            />
+          </div>
+          <div>
+            {showForm ? (<NewPersonForm />) : null}
+            {/* <NewPersonForm /> */}
+          </div>
           <div className="row">
             <ul className="collapsible">
               {people.map((person) => (

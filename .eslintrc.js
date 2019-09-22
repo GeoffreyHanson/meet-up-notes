@@ -8,6 +8,12 @@ module.exports = {
     rules: {
         'react/jsx-filename-extension': 0,
         'indent': ['error', 2],
-        'global-require': 1
+        'global-require': 1,
+        "jsx-a11y/label-has-associated-control": [ 2, {
+            "labelComponents": ["CustomInputLabel"],
+            "labelAttributes": ["label"],
+            "controlComponents": ["CustomInput"],
+            "depth": 3,
+          }],
     }
 }
