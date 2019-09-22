@@ -6,7 +6,7 @@ import './AccordionItem.css';
 
 const AccordionItem = (props) => {
   const {
-    id, name, notes, click,
+    id, name, notes, changed, click,
   } = props;
 
   // Initializing materialize components
@@ -37,9 +37,11 @@ const AccordionItem = (props) => {
       </div>
       <div className="collapsible-body">
         {/* TODO: turn into input with two way binding */}
-        <span>
-          {notes}
-        </span>
+        <input
+          type="text"
+          onChange={changed}
+          value={notes}
+        />
       </div>
     </li>
   );
@@ -47,6 +49,7 @@ const AccordionItem = (props) => {
 
 
 AccordionItem.defaultProps = {
+  changed: PropTypes.func,
   click: PropTypes.func,
   id: PropTypes.number,
   name: PropTypes.string,
@@ -54,6 +57,7 @@ AccordionItem.defaultProps = {
 };
 
 AccordionItem.propTypes = {
+  changed: PropTypes.func,
   click: PropTypes.func,
   id: PropTypes.number,
   name: PropTypes.string,
