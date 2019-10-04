@@ -20,6 +20,7 @@ class MainPage extends Component {
     };
   }
 
+  // Deletes people from the list.
   deletePersonHandler = (id) => { // 0
     let { people } = this.state;
 
@@ -38,6 +39,7 @@ class MainPage extends Component {
     this.setState({ people });
   }
 
+  // Handling input for the notes of people on the list.
   inputChangedHandler = (event, id) => {
     const { people } = this.state;
 
@@ -60,6 +62,7 @@ class MainPage extends Component {
     });
   }
 
+  // Toggles the form for adding people.
   addButtonToggleClickHandler = () => {
     const { showForm } = this.state;
 
@@ -70,6 +73,7 @@ class MainPage extends Component {
     this.setState({ showForm: !show });
   }
 
+  // Handling input to the form.
   newPersonInputHandler = (event) => {
     // Using computed property name syntax to update name and notes in state
     // based on the id of the input field.
@@ -78,6 +82,7 @@ class MainPage extends Component {
     });
   }
 
+  // Adds new people to the list based on information in the form.
   personSubmitHandler = (event) => {
     event.preventDefault();
 
