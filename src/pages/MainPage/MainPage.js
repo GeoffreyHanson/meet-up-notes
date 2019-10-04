@@ -6,6 +6,8 @@ import AccordionItem from '../../components/AccordionItem/AccordionItem';
 class MainPage extends Component {
   constructor(props) {
     super(props);
+    this.name = React.createRef();
+    this.notes = React.createRef();
     this.state = {
       people: [
         { id: 0, name: 'Person1', notes: 'Notes about person1' },
@@ -13,6 +15,8 @@ class MainPage extends Component {
         { id: 2, name: 'Person3', notes: 'Notes about person3' },
       ],
       showForm: false,
+      name: '',
+      notes: '',
     };
   }
 
@@ -66,10 +70,56 @@ class MainPage extends Component {
     this.setState({ showForm: !show });
   }
 
-  // addPersonFormHandler = (event) => {}
+  newPersonInputHandler = (event) => {
+    // Using computed property name syntax to update name and notes in state
+    // based on the id of the input field.
+    this.setState({
+      [event.target.id]: event.target.value,
+    });
+  }
+
+  personSubmitHandler = (event) => {
+    event.preventDefault();
+
+    const { name, notes } = this.state;
+    let { people } = this.state;
+
+    // Making a copy of state.
+    people = [...people];
+
+    console.log(people);
+
+
+    // Creating a new person object from the form data.
+    const newPerson = {
+      id: people.length,
+      name,
+      notes,
+    };
+
+    // Adding the new object to the array.
+    people.push(newPerson);
+
+    this.setState({
+      name: '',
+      notes: '',
+      people,
+    });
+  }
 
   render() {
-    const { people, showForm } = this.state;
+    const {
+      name, notes, people, showForm,
+    } = this.state;
+    const personForm = showForm ? (
+      <NewPersonForm
+        name={name}
+        notes={notes}
+        changed={(event) => this.newPersonInputHandler(event)}
+        submit={((event) => this.personSubmitHandler(event))}
+      />
+    ) : (null);
+
     return (
       <div className="MainPage">
         <div className="container center-align">
@@ -81,8 +131,9 @@ class MainPage extends Component {
             />
           </div>
           <div>
-            {showForm ? (<NewPersonForm />) : null}
-            {/* <NewPersonForm /> */}
+            {/* TODO: Should conditionality be in the render or return? */}
+            {/* {showForm ? (<NewPersonForm />) : null} */}
+            {personForm}
           </div>
           <div className="row">
             <ul className="collapsible">
