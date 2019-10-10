@@ -6,8 +6,6 @@ import AccordionItem from '../../components/AccordionItem/AccordionItem';
 class MainPage extends Component {
   constructor(props) {
     super(props);
-    this.name = React.createRef();
-    this.notes = React.createRef();
     this.state = {
       people: [
         { id: 0, name: 'Person1', notes: 'Notes about person1' },
@@ -92,9 +90,6 @@ class MainPage extends Component {
     // Making a copy of state.
     people = [...people];
 
-    console.log(people);
-
-
     // Creating a new person object from the form data.
     const newPerson = {
       id: people.length,
@@ -116,14 +111,16 @@ class MainPage extends Component {
     const {
       name, notes, people, showForm,
     } = this.state;
-    const personForm = showForm ? (
+
+    // Possble && conditionality.
+    const personForm = (
       <NewPersonForm
         name={name}
         notes={notes}
         changed={(event) => this.newPersonInputHandler(event)}
         submit={((event) => this.personSubmitHandler(event))}
       />
-    ) : (null);
+    );
 
     return (
       <div className="MainPage">
@@ -136,9 +133,8 @@ class MainPage extends Component {
             />
           </div>
           <div>
-            {/* TODO: Should conditionality be in the render or return? */}
-            {/* {showForm ? (<NewPersonForm />) : null} */}
-            {personForm}
+            {/* Preventing the form from showing until the add button is pressed */}
+            {showForm ? personForm : null}
           </div>
           <div className="row">
             <ul className="collapsible">
