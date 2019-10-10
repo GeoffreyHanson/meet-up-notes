@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import AddButton from '../../components/AddButton/AddButton';
+import NewPersonForm from '../../components/NewPersonForm/NewPersonForm';
 import AccordionItem from '../../components/AccordionItem/AccordionItem';
 
 class MainPage extends Component {
@@ -10,9 +12,13 @@ class MainPage extends Component {
         { id: 1, name: 'Person2', notes: 'Notes about person2' },
         { id: 2, name: 'Person3', notes: 'Notes about person3' },
       ],
+      showForm: false,
+      name: '',
+      notes: '',
     };
   }
 
+  // Deletes people from the list.
   deletePersonHandler = (id) => { // 0
     let { people } = this.state;
 
@@ -31,6 +37,7 @@ class MainPage extends Component {
     this.setState({ people });
   }
 
+  // Handling input for the notes of people on the list.
   inputChangedHandler = (event, id) => {
     const { people } = this.state;
 
@@ -53,13 +60,82 @@ class MainPage extends Component {
     });
   }
 
+  // Toggles the form for adding people.
+  addButtonToggleClickHandler = () => {
+    const { showForm } = this.state;
+
+    // Creating a copy of the state.
+    const show = showForm;
+
+    // Setting the state to the opposite boolean.
+    this.setState({ showForm: !show });
+  }
+
+  // Handling input to the form.
+  newPersonInputHandler = (event) => {
+    // Using computed property name syntax to update name and notes in state
+    // based on the id of the input field.
+    this.setState({
+      [event.target.id]: event.target.value,
+    });
+  }
+
+  // Adds new people to the list based on information in the form.
+  personSubmitHandler = (event) => {
+    event.preventDefault();
+
+    const { name, notes } = this.state;
+    let { people } = this.state;
+
+    // Making a copy of state.
+    people = [...people];
+
+    // Creating a new person object from the form data.
+    const newPerson = {
+      id: people.length,
+      name,
+      notes,
+    };
+
+    // Adding the new object to the array.
+    people.push(newPerson);
+
+    this.setState({
+      name: '',
+      notes: '',
+      people,
+    });
+  }
+
   render() {
-    const { people } = this.state;
+    const {
+      name, notes, people, showForm,
+    } = this.state;
+
+    // Possble && conditionality.
+    const personForm = (
+      <NewPersonForm
+        name={name}
+        notes={notes}
+        changed={(event) => this.newPersonInputHandler(event)}
+        submit={((event) => this.personSubmitHandler(event))}
+      />
+    );
+
     return (
       <div className="MainPage">
         <div className="container center-align">
           <h1>Test MainPage</h1>
           {/* <AddButton /> */}
+          <div className="row left-align">
+            <AddButton
+              click={() => this.addButtonToggleClickHandler()}
+            />
+          </div>
+          <div>
+            {/* Preventing the form from showing until the add button is pressed */}
+            {showForm ? personForm : null}
+          </div>
           <div className="row">
             <ul className="collapsible">
               {people.map((person) => (
